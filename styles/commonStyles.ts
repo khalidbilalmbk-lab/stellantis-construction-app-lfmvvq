@@ -3,21 +3,25 @@ import { StyleSheet, ViewStyle, TextStyle } from 'react-native';
 
 export const colors = {
   background: '#FFFFFF',
-  text: '#1E293B',
-  textSecondary: '#64748B',
-  primary: '#0F172A',
-  secondary: '#A89978',
-  accent: '#A89978',
-  card: '#F9FAFB',
-  highlight: '#A89978',
+  text: '#0A1628',
+  textSecondary: '#4A5568',
+  primary: '#1E3A8A',        // Deep Blue
+  secondary: '#D4AF37',      // Golden
+  accent: '#3B82F6',         // Bright Blue
+  card: '#F8FAFC',
+  highlight: '#FDB913',      // Bright Gold
   border: '#E2E8F0',
   white: '#FFFFFF',
   dark: '#0F172A',
+  darkBlue: '#1E3A8A',
+  lightBlue: '#60A5FA',
+  gold: '#D4AF37',
+  lightGold: '#F4E4B7',
 };
 
 export const buttonStyles = StyleSheet.create({
   primaryButton: {
-    backgroundColor: colors.secondary,
+    backgroundColor: colors.primary,
     paddingVertical: 14,
     paddingHorizontal: 24,
     borderRadius: 8,
@@ -30,7 +34,7 @@ export const buttonStyles = StyleSheet.create({
     fontWeight: '600',
   },
   secondaryButton: {
-    backgroundColor: colors.primary,
+    backgroundColor: colors.secondary,
     paddingVertical: 14,
     paddingHorizontal: 24,
     borderRadius: 8,
@@ -109,8 +113,10 @@ export const commonStyles = StyleSheet.create({
     borderRadius: 12,
     padding: 16,
     marginBottom: 16,
-    boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.08)',
+    boxShadow: '0px 2px 8px rgba(30, 58, 138, 0.1)',
     elevation: 2,
+    borderLeftWidth: 3,
+    borderLeftColor: colors.secondary,
   },
   cardTitle: {
     fontSize: 18,
