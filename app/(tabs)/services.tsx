@@ -7,6 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Platform,
+  ImageBackground,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
@@ -26,7 +27,7 @@ const services: Service[] = [
     id: '1',
     title: 'Construction',
     icon: 'hammer.fill',
-    description: 'Full-scale construction services for residential, commercial, and industrial projects',
+    description: 'Full-scale construction services for residential, commercial, and industrial projects.',
     features: [
       'New builds and extensions',
       'Structural work',
@@ -38,7 +39,7 @@ const services: Service[] = [
     id: '2',
     title: 'Design & Build',
     icon: 'pencil.and.ruler.fill',
-    description: 'Comprehensive design and build solutions from concept to completion',
+    description: 'Comprehensive design and build solutions from concept to completion.',
     features: [
       'Architectural design',
       'Planning permission support',
@@ -50,7 +51,7 @@ const services: Service[] = [
     id: '3',
     title: 'Project Management',
     icon: 'chart.bar.fill',
-    description: 'Professional project management ensuring on-time and on-budget delivery',
+    description: 'Expert project management ensuring on-time and on-budget delivery.',
     features: [
       'Timeline planning',
       'Budget management',
@@ -62,7 +63,7 @@ const services: Service[] = [
     id: '4',
     title: 'Consultancy',
     icon: 'person.2.fill',
-    description: 'Expert construction consultancy and advisory services',
+    description: 'Professional construction consultancy and advisory services.',
     features: [
       'Feasibility studies',
       'Cost estimation',
@@ -74,43 +75,43 @@ const services: Service[] = [
     id: '5',
     title: 'Refurbishment',
     icon: 'paintbrush.fill',
-    description: 'Complete refurbishment and renovation services for existing properties',
+    description: 'Complete refurbishment and renovation services for existing properties.',
     features: [
-      'Interior refurbishment',
-      'Exterior renovation',
-      'Heritage restoration',
+      'Interior renovation',
+      'Exterior upgrades',
       'Modernization',
+      'Heritage restoration',
     ],
   },
   {
     id: '6',
     title: 'Extensions & Lofts',
     icon: 'house.fill',
-    description: 'Expert home extension and loft conversion services',
+    description: 'Expert home extension and loft conversion services.',
     features: [
       'Single and double-story extensions',
       'Loft conversions',
-      'Garage conversions',
       'Basement conversions',
+      'Planning and design',
     ],
   },
   {
     id: '7',
     title: 'Data Centres',
     icon: 'server.rack',
-    description: 'Specialized construction of state-of-the-art data centre facilities',
+    description: 'Specialized construction of high-tech data centre facilities.',
     features: [
-      'Tier III & IV data centres',
-      'Advanced cooling systems',
-      'Security infrastructure',
-      'Power redundancy',
+      'Critical infrastructure',
+      'Cooling systems',
+      'Power distribution',
+      'Security systems',
     ],
   },
   {
     id: '8',
     title: 'Commercial Projects',
     icon: 'building.2.fill',
-    description: 'Large-scale commercial construction and development',
+    description: 'Large-scale commercial construction and development projects.',
     features: [
       'Office buildings',
       'Retail spaces',
@@ -124,120 +125,141 @@ export default function ServicesScreen() {
   const router = useRouter();
 
   return (
-    <SafeAreaView style={commonStyles.safeArea} edges={['top']}>
-      <View style={commonStyles.container}>
-        {/* Header */}
-        <View style={styles.header}>
-          <Text style={commonStyles.title}>Our Services</Text>
-          <Text style={commonStyles.textSecondary}>
-            Comprehensive construction solutions tailored to your needs
-          </Text>
-        </View>
+    <ImageBackground
+      source={{ uri: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1200' }}
+      style={styles.backgroundImage}
+      imageStyle={styles.backgroundImageStyle}
+    >
+      <View style={styles.overlay}>
+        <SafeAreaView style={commonStyles.safeArea} edges={['top']}>
+          <ScrollView
+            style={commonStyles.container}
+            contentContainerStyle={[
+              styles.scrollContent,
+              Platform.OS !== 'ios' && commonStyles.scrollContentWithTabBar,
+            ]}
+            showsVerticalScrollIndicator={false}
+          >
+            {/* Header */}
+            <View style={styles.header}>
+              <Text style={[commonStyles.title, styles.titleLight]}>Our Services</Text>
+              <Text style={[commonStyles.textSecondary, styles.subtitleLight]}>
+                Comprehensive construction solutions
+              </Text>
+            </View>
 
-        {/* Services List */}
-        <ScrollView
-          style={styles.servicesList}
-          contentContainerStyle={[
-            styles.servicesContent,
-            Platform.OS !== 'ios' && commonStyles.scrollContentWithTabBar,
-          ]}
-          showsVerticalScrollIndicator={false}
-        >
-          {services.map((service) => (
-            <View key={service.id} style={styles.serviceCard}>
-              <View style={styles.serviceHeader}>
-                <View style={styles.iconContainer}>
-                  <IconSymbol name={service.icon as any} size={28} color={colors.secondary} />
-                </View>
-                <View style={styles.serviceHeaderText}>
-                  <Text style={styles.serviceTitle}>{service.title}</Text>
-                </View>
-              </View>
-              <Text style={styles.serviceDescription}>{service.description}</Text>
-              <View style={styles.featuresContainer}>
-                {service.features.map((feature, index) => (
-                  <View key={index} style={styles.featureRow}>
-                    <IconSymbol
-                      name="checkmark.circle.fill"
-                      size={18}
-                      color={colors.secondary}
-                    />
-                    <Text style={styles.featureText}>{feature}</Text>
+            {/* Services List */}
+            <View style={styles.servicesSection}>
+              {services.map((service) => (
+                <View key={service.id} style={[commonStyles.card, styles.cardWithBackground, styles.serviceCard]}>
+                  <View style={styles.serviceHeader}>
+                    <View style={[commonStyles.iconContainer, { backgroundColor: colors.background }]}>
+                      <IconSymbol name={service.icon as any} size={28} color={colors.secondary} />
+                    </View>
+                    <View style={styles.serviceTitleContainer}>
+                      <Text style={styles.serviceTitle}>{service.title}</Text>
+                    </View>
                   </View>
-                ))}
-              </View>
+
+                  <Text style={styles.serviceDescription}>{service.description}</Text>
+
+                  <View style={styles.featuresContainer}>
+                    {service.features.map((feature, index) => (
+                      <View key={index} style={styles.featureRow}>
+                        <IconSymbol name="checkmark.circle.fill" size={18} color={colors.secondary} />
+                        <Text style={styles.featureText}>{feature}</Text>
+                      </View>
+                    ))}
+                  </View>
+
+                  <TouchableOpacity
+                    style={styles.quoteButton}
+                    onPress={() => router.push('/(tabs)/contact')}
+                    activeOpacity={0.8}
+                  >
+                    <Text style={styles.quoteButtonText}>Get a Quote</Text>
+                    <IconSymbol name="arrow.right" size={16} color={colors.secondary} />
+                  </TouchableOpacity>
+                </View>
+              ))}
+            </View>
+
+            {/* CTA Section */}
+            <View style={styles.ctaSection}>
+              <Text style={styles.ctaTitle}>Need a Custom Solution?</Text>
+              <Text style={styles.ctaText}>
+                Contact us to discuss your specific requirements and get a tailored quote
+              </Text>
               <TouchableOpacity
-                style={styles.quoteButton}
+                style={styles.ctaButton}
                 onPress={() => router.push('/(tabs)/contact')}
                 activeOpacity={0.8}
               >
-                <Text style={styles.quoteButtonText}>Get a Quote</Text>
-                <IconSymbol name="arrow.right" size={16} color={colors.white} />
+                <Text style={styles.ctaButtonText}>Contact Us</Text>
+                <IconSymbol name="phone.fill" size={18} color={colors.white} />
               </TouchableOpacity>
             </View>
-          ))}
-
-          {/* Bottom CTA */}
-          <View style={styles.bottomCTA}>
-            <Text style={styles.ctaTitle}>Need a Custom Solution?</Text>
-            <Text style={styles.ctaText}>
-              We offer tailored services to meet your specific requirements
-            </Text>
-            <TouchableOpacity
-              style={styles.ctaButton}
-              onPress={() => router.push('/(tabs)/contact')}
-              activeOpacity={0.8}
-            >
-              <Text style={styles.ctaButtonText}>Contact Us</Text>
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
+          </ScrollView>
+        </SafeAreaView>
       </View>
-    </SafeAreaView>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+  },
+  backgroundImageStyle: {
+    opacity: 0.12,
+  },
+  overlay: {
+    flex: 1,
+    backgroundColor: 'rgba(255, 255, 255, 0.90)',
+  },
+  scrollContent: {
+    paddingBottom: 20,
+  },
   header: {
     paddingHorizontal: 20,
     paddingTop: 20,
     paddingBottom: 16,
   },
-  servicesList: {
-    flex: 1,
+  titleLight: {
+    textShadowColor: 'rgba(0, 0, 0, 0.1)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
   },
-  servicesContent: {
+  subtitleLight: {
+    textShadowColor: 'rgba(0, 0, 0, 0.05)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 1,
+  },
+  cardWithBackground: {
+    backgroundColor: 'rgba(248, 250, 252, 0.95)',
+    backdropFilter: 'blur(10px)',
+  },
+  servicesSection: {
     paddingHorizontal: 20,
-    paddingBottom: 20,
+    marginTop: 8,
   },
   serviceCard: {
-    backgroundColor: colors.card,
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 16,
-    boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.08)',
-    elevation: 2,
+    marginBottom: 20,
   },
   serviceHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 12,
-    gap: 12,
   },
-  iconContainer: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    backgroundColor: colors.background,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  serviceHeaderText: {
+  serviceTitleContainer: {
     flex: 1,
+    marginLeft: 12,
   },
   serviceTitle: {
-    fontSize: 18,
-    fontWeight: '600',
+    fontSize: 20,
+    fontWeight: '700',
     color: colors.text,
   },
   serviceDescription: {
@@ -247,13 +269,13 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   featuresContainer: {
-    gap: 8,
     marginBottom: 16,
   },
   featureRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: 10,
+    marginBottom: 8,
   },
   featureText: {
     fontSize: 14,
@@ -264,23 +286,28 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.secondary,
+    backgroundColor: colors.background,
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 8,
     gap: 8,
+    borderWidth: 1,
+    borderColor: colors.secondary,
   },
   quoteButtonText: {
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: '600',
-    color: colors.white,
+    color: colors.secondary,
   },
-  bottomCTA: {
+  ctaSection: {
+    marginHorizontal: 20,
+    marginTop: 32,
     backgroundColor: colors.primary,
-    borderRadius: 12,
+    borderRadius: 16,
     padding: 24,
     alignItems: 'center',
-    marginTop: 8,
+    boxShadow: '0px 4px 16px rgba(30, 58, 138, 0.3)',
+    elevation: 6,
   },
   ctaTitle: {
     fontSize: 20,
@@ -295,12 +322,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 20,
     opacity: 0.9,
+    lineHeight: 20,
   },
   ctaButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
     backgroundColor: colors.secondary,
-    paddingVertical: 12,
+    paddingVertical: 14,
     paddingHorizontal: 24,
     borderRadius: 8,
+    gap: 8,
   },
   ctaButtonText: {
     fontSize: 16,

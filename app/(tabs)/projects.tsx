@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Platform,
   Dimensions,
+  ImageBackground,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { IconSymbol } from '@/components/IconSymbol';
@@ -31,76 +32,75 @@ interface Project {
 const projects: Project[] = [
   {
     id: '1',
-    title: 'Skyline Commercial Tower',
+    title: 'Modern Office Complex',
     category: 'Commercial',
     location: 'London, UK',
-    budget: '£15M',
-    size: '50,000 sq ft',
+    budget: '£5.2M',
+    size: '15,000 sq ft',
     status: 'Completed',
     image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800',
-    description: 'Modern 20-story commercial tower with state-of-the-art facilities',
+    description: 'State-of-the-art office building with modern amenities and sustainable design.',
   },
   {
     id: '2',
-    title: 'Riverside Residential Complex',
+    title: 'Luxury Residential Tower',
     category: 'Residential',
     location: 'Manchester, UK',
-    budget: '£8M',
-    size: '35,000 sq ft',
-    status: 'Ongoing',
+    budget: '£8.5M',
+    size: '25,000 sq ft',
+    status: 'In Progress',
     image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800',
-    description: 'Luxury residential complex with 120 apartments and amenities',
+    description: 'Premium residential complex with 50 luxury apartments and world-class facilities.',
   },
   {
     id: '3',
-    title: 'TechHub Data Centre',
-    category: 'Data Centres',
+    title: 'Enterprise Data Centre',
+    category: 'Data Centre',
     location: 'Birmingham, UK',
-    budget: '£25M',
-    size: '80,000 sq ft',
+    budget: '£12M',
+    size: '30,000 sq ft',
     status: 'Completed',
     image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800',
-    description: 'Tier III data centre with advanced cooling and security systems',
+    description: 'High-security data centre with advanced cooling and power infrastructure.',
   },
   {
     id: '4',
-    title: 'Green Valley Development',
-    category: 'Developments',
+    title: 'Shopping Mall Renovation',
+    category: 'Commercial',
     location: 'Leeds, UK',
-    budget: '£12M',
-    size: '60,000 sq ft',
-    status: 'Ongoing',
-    image: 'https://images.unsplash.com/photo-1448630360428-65456885c650?w=800',
-    description: 'Mixed-use development with residential and commercial spaces',
+    budget: '£3.8M',
+    size: '20,000 sq ft',
+    status: 'Completed',
+    image: 'https://images.unsplash.com/photo-1519567241046-7f570eee3ce6?w=800',
+    description: 'Complete renovation of existing shopping center with modern retail spaces.',
   },
   {
     id: '5',
-    title: 'Heritage Office Refurbishment',
-    category: 'Commercial',
-    location: 'Edinburgh, UK',
-    budget: '£5M',
-    size: '25,000 sq ft',
-    status: 'Completed',
-    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800',
-    description: 'Complete refurbishment of historic building into modern offices',
+    title: 'Residential Development',
+    category: 'Residential',
+    location: 'Bristol, UK',
+    budget: '£6.5M',
+    size: '18,000 sq ft',
+    status: 'Planning',
+    image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800',
+    description: 'New residential development with 30 family homes and community facilities.',
   },
   {
     id: '6',
-    title: 'Parkside Villas',
-    category: 'Residential',
-    location: 'Bristol, UK',
-    budget: '£6M',
-    size: '30,000 sq ft',
-    status: 'Completed',
-    image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800',
-    description: 'Exclusive collection of 15 luxury villas with private gardens',
+    title: 'Tech Campus Extension',
+    category: 'Commercial',
+    location: 'Cambridge, UK',
+    budget: '£9.2M',
+    size: '22,000 sq ft',
+    status: 'In Progress',
+    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800',
+    description: 'Expansion of technology campus with collaborative workspaces and labs.',
   },
 ];
 
-const categories = ['All', 'Residential', 'Commercial', 'Data Centres', 'Developments'];
-
 export default function ProjectsScreen() {
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const categories = ['All', 'Residential', 'Commercial', 'Data Centre'];
 
   const filteredProjects =
     selectedCategory === 'All'
@@ -108,145 +108,174 @@ export default function ProjectsScreen() {
       : projects.filter((p) => p.category === selectedCategory);
 
   return (
-    <SafeAreaView style={commonStyles.safeArea} edges={['top']}>
-      <View style={commonStyles.container}>
-        {/* Header */}
-        <View style={styles.header}>
-          <Text style={commonStyles.title}>Our Projects</Text>
-          <Text style={commonStyles.textSecondary}>
-            Showcasing excellence in construction and development
-          </Text>
-        </View>
-
-        {/* Category Filter */}
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          style={styles.categoryScroll}
-          contentContainerStyle={styles.categoryContent}
-        >
-          {categories.map((category) => (
-            <TouchableOpacity
-              key={category}
-              style={[
-                styles.categoryButton,
-                selectedCategory === category && styles.categoryButtonActive,
-              ]}
-              onPress={() => setSelectedCategory(category)}
-              activeOpacity={0.7}
-            >
-              <Text
-                style={[
-                  styles.categoryText,
-                  selectedCategory === category && styles.categoryTextActive,
-                ]}
-              >
-                {category}
+    <ImageBackground
+      source={{ uri: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1200' }}
+      style={styles.backgroundImage}
+      imageStyle={styles.backgroundImageStyle}
+    >
+      <View style={styles.overlay}>
+        <SafeAreaView style={commonStyles.safeArea} edges={['top']}>
+          <ScrollView
+            style={commonStyles.container}
+            contentContainerStyle={[
+              styles.scrollContent,
+              Platform.OS !== 'ios' && commonStyles.scrollContentWithTabBar,
+            ]}
+            showsVerticalScrollIndicator={false}
+          >
+            {/* Header */}
+            <View style={styles.header}>
+              <Text style={[commonStyles.title, styles.titleLight]}>Our Projects</Text>
+              <Text style={[commonStyles.textSecondary, styles.subtitleLight]}>
+                Showcasing excellence in construction
               </Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
-
-        {/* Projects List */}
-        <ScrollView
-          style={styles.projectsList}
-          contentContainerStyle={[
-            styles.projectsContent,
-            Platform.OS !== 'ios' && commonStyles.scrollContentWithTabBar,
-          ]}
-          showsVerticalScrollIndicator={false}
-        >
-          {filteredProjects.map((project) => (
-            <View key={project.id} style={styles.projectCard}>
-              <Image source={{ uri: project.image }} style={styles.projectImage} />
-              <View style={styles.projectDetails}>
-                <View style={styles.projectHeader}>
-                  <Text style={styles.projectTitle}>{project.title}</Text>
-                  <View
-                    style={[
-                      styles.statusBadge,
-                      {
-                        backgroundColor:
-                          project.status === 'Completed' ? colors.secondary : colors.primary,
-                      },
-                    ]}
-                  >
-                    <Text style={styles.statusText}>{project.status}</Text>
-                  </View>
-                </View>
-                <Text style={styles.projectDescription}>{project.description}</Text>
-                <View style={styles.projectInfo}>
-                  <View style={styles.infoRow}>
-                    <IconSymbol name="location.fill" size={16} color={colors.textSecondary} />
-                    <Text style={styles.infoText}>{project.location}</Text>
-                  </View>
-                  <View style={styles.infoRow}>
-                    <IconSymbol name="square.grid.2x2.fill" size={16} color={colors.textSecondary} />
-                    <Text style={styles.infoText}>{project.size}</Text>
-                  </View>
-                  <View style={styles.infoRow}>
-                    <IconSymbol name="banknote.fill" size={16} color={colors.textSecondary} />
-                    <Text style={styles.infoText}>{project.budget}</Text>
-                  </View>
-                  <View style={styles.infoRow}>
-                    <IconSymbol name="tag.fill" size={16} color={colors.textSecondary} />
-                    <Text style={styles.infoText}>{project.category}</Text>
-                  </View>
-                </View>
-              </View>
             </View>
-          ))}
-        </ScrollView>
+
+            {/* Category Filter */}
+            <View style={styles.filterSection}>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                {categories.map((category) => (
+                  <TouchableOpacity
+                    key={category}
+                    style={[
+                      styles.filterButton,
+                      selectedCategory === category && styles.filterButtonActive,
+                    ]}
+                    onPress={() => setSelectedCategory(category)}
+                    activeOpacity={0.8}
+                  >
+                    <Text
+                      style={[
+                        styles.filterButtonText,
+                        selectedCategory === category && styles.filterButtonTextActive,
+                      ]}
+                    >
+                      {category}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+            </View>
+
+            {/* Projects Grid */}
+            <View style={styles.projectsSection}>
+              {filteredProjects.map((project) => (
+                <View key={project.id} style={[styles.projectCard, styles.cardWithBackground]}>
+                  <Image source={{ uri: project.image }} style={styles.projectImage} />
+                  <View style={styles.projectContent}>
+                    <View style={styles.projectHeader}>
+                      <Text style={styles.projectTitle}>{project.title}</Text>
+                      <View
+                        style={[
+                          styles.statusBadge,
+                          project.status === 'Completed' && styles.statusCompleted,
+                          project.status === 'In Progress' && styles.statusInProgress,
+                          project.status === 'Planning' && styles.statusPlanning,
+                        ]}
+                      >
+                        <Text style={styles.statusText}>{project.status}</Text>
+                      </View>
+                    </View>
+
+                    <Text style={styles.projectDescription}>{project.description}</Text>
+
+                    <View style={styles.projectDetails}>
+                      <View style={styles.detailRow}>
+                        <IconSymbol name="mappin.circle.fill" size={16} color={colors.secondary} />
+                        <Text style={styles.detailText}>{project.location}</Text>
+                      </View>
+                      <View style={styles.detailRow}>
+                        <IconSymbol name="square.grid.2x2.fill" size={16} color={colors.secondary} />
+                        <Text style={styles.detailText}>{project.size}</Text>
+                      </View>
+                      <View style={styles.detailRow}>
+                        <IconSymbol name="dollarsign.circle.fill" size={16} color={colors.secondary} />
+                        <Text style={styles.detailText}>{project.budget}</Text>
+                      </View>
+                      <View style={styles.detailRow}>
+                        <IconSymbol name="tag.fill" size={16} color={colors.secondary} />
+                        <Text style={styles.detailText}>{project.category}</Text>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+              ))}
+            </View>
+          </ScrollView>
+        </SafeAreaView>
       </View>
-    </SafeAreaView>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+  },
+  backgroundImageStyle: {
+    opacity: 0.12,
+  },
+  overlay: {
+    flex: 1,
+    backgroundColor: 'rgba(255, 255, 255, 0.90)',
+  },
+  scrollContent: {
+    paddingBottom: 20,
+  },
   header: {
     paddingHorizontal: 20,
     paddingTop: 20,
     paddingBottom: 16,
   },
-  categoryScroll: {
-    maxHeight: 50,
+  titleLight: {
+    textShadowColor: 'rgba(0, 0, 0, 0.1)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
   },
-  categoryContent: {
+  subtitleLight: {
+    textShadowColor: 'rgba(0, 0, 0, 0.05)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 1,
+  },
+  cardWithBackground: {
+    backgroundColor: 'rgba(248, 250, 252, 0.95)',
+    backdropFilter: 'blur(10px)',
+  },
+  filterSection: {
     paddingHorizontal: 20,
-    gap: 8,
-    paddingBottom: 16,
+    marginTop: 8,
   },
-  categoryButton: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
+  filterButton: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
     borderRadius: 20,
-    backgroundColor: colors.card,
+    backgroundColor: 'rgba(248, 250, 252, 0.95)',
+    marginRight: 12,
     borderWidth: 1,
     borderColor: colors.border,
   },
-  categoryButtonActive: {
+  filterButtonActive: {
     backgroundColor: colors.secondary,
     borderColor: colors.secondary,
   },
-  categoryText: {
+  filterButtonText: {
     fontSize: 14,
     fontWeight: '600',
     color: colors.text,
   },
-  categoryTextActive: {
+  filterButtonTextActive: {
     color: colors.white,
   },
-  projectsList: {
-    flex: 1,
-  },
-  projectsContent: {
+  projectsSection: {
     paddingHorizontal: 20,
-    paddingBottom: 20,
+    marginTop: 24,
   },
   projectCard: {
-    backgroundColor: colors.card,
+    backgroundColor: 'rgba(248, 250, 252, 0.95)',
     borderRadius: 12,
-    marginBottom: 16,
+    marginBottom: 20,
     overflow: 'hidden',
     boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.08)',
     elevation: 2,
@@ -255,29 +284,38 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 200,
   },
-  projectDetails: {
+  projectContent: {
     padding: 16,
   },
   projectHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    marginBottom: 8,
+    marginBottom: 12,
   },
   projectTitle: {
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: '700',
     color: colors.text,
     flex: 1,
-    marginRight: 8,
+    marginRight: 12,
   },
   statusBadge: {
-    paddingHorizontal: 10,
+    paddingHorizontal: 12,
     paddingVertical: 4,
     borderRadius: 12,
   },
+  statusCompleted: {
+    backgroundColor: '#10B981',
+  },
+  statusInProgress: {
+    backgroundColor: '#F59E0B',
+  },
+  statusPlanning: {
+    backgroundColor: '#6366F1',
+  },
   statusText: {
-    fontSize: 12,
+    fontSize: 11,
     fontWeight: '600',
     color: colors.white,
   },
@@ -285,18 +323,25 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: colors.textSecondary,
     lineHeight: 20,
-    marginBottom: 12,
+    marginBottom: 16,
   },
-  projectInfo: {
-    gap: 8,
+  projectDetails: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 12,
   },
-  infoRow: {
+  detailRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: 6,
+    backgroundColor: colors.background,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 8,
   },
-  infoText: {
-    fontSize: 14,
+  detailText: {
+    fontSize: 13,
     color: colors.text,
+    fontWeight: '500',
   },
 });
